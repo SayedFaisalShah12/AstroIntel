@@ -22,7 +22,9 @@ def app():
             st.write(apod_data.get("explanation"))
             st.caption(f"Date: {apod_data.get('date')}")
     else:
-        st.error("Could not fetch APOD data.")
+        st.error("Could not fetch APOD data. The NASA API might be timing out.")
+        if st.button("Retry Load APOD"):
+            st.rerun()
 
     st.markdown("---")
     st.info("👈 Use the sidebar to navigate between modules.")

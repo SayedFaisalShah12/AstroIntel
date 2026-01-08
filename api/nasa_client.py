@@ -27,8 +27,11 @@ class NASAClient:
         if params is None:
             params = {}
         params['api_key'] = self.api_key
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+        }
         try:
-            response = self.session.get(f"{self.base_url}{endpoint}", params=params, timeout=30)
+            response = self.session.get(f"{self.base_url}{endpoint}", params=params, headers=headers, timeout=60)
             response.raise_for_status()
             return response.json()
         except requests.exceptions.RequestException as e:
@@ -63,8 +66,11 @@ class NASAClient:
     def search_images(self, query):
         """Search NASA Image and Video Library (Different Base URL)"""
         url = "https://images-api.nasa.gov/search"
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+        }
         try:
-            response = self.session.get(url, params={"q": query, "media_type": "image"}, timeout=30)
+            response = self.session.get(url, params={"q": query, "media_type": "image"}, headers=headers, timeout=60)
             response.raise_for_status()
             return response.json()
         except requests.exceptions.RequestException as e:
