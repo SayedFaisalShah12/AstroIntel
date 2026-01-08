@@ -2,6 +2,8 @@ import os
 import requests
 import datetime
 from dotenv import load_dotenv
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 load_dotenv()
 
@@ -9,13 +11,24 @@ class NASAClient:
     def __init__(self):
         self.api_key = os.getenv("NASA_API_KEY")
         self.base_url = "https://api.nasa.gov"
+        
+        # Configure session with retry strategy
+        self.session = requests.Session()
+        retry_strategy = Retry(
+            total=3,
+            backoff_factor=1,
+            status_forcelist=[429, 500, 502, 503, 504],
+        )
+        adapter = HTTPAdapter(max_retries=retry_strategy)
+        self.session.mount("https://", adapter)
+        self.session.mount("http://", adapter)
 
     def _get(self, endpoint, params=None):
         if params is None:
             params = {}
         params['api_key'] = self.api_key
         try:
-            response = requests.get(f"{self.base_url}{endpoint}", params=params, timeout=10)
+            response = self.session.get(f"{self.base_url}{endpoint}", params=params, timeout=30)
             response.raise_for_status()
             return response.json()
         except requests.exceptions.RequestException as e:
@@ -51,7 +64,7 @@ class NASAClient:
         """Search NASA Image and Video Library (Different Base URL)"""
         url = "https://images-api.nasa.gov/search"
         try:
-            response = requests.get(url, params={"q": query, "media_type": "image"}, timeout=10)
+            response = self.session.get(url, params={"q": query, "media_type": "image"}, timeout=30)
             response.raise_for_status()
             return response.json()
         except requests.exceptions.RequestException as e:
