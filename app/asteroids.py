@@ -53,7 +53,7 @@ def app():
                 
                 # Visualize
                 if neo_list:
-                    st.plotly_chart(plot_neo_scatter(neo_list), use_container_width=True)
+                    st.plotly_chart(plot_neo_scatter(neo_list), use_column_width=True)
                     
                     st.subheader("Hazardous Asteroids Detected")
                     hazardous = [n for n in neo_list if n["hazardous"]]

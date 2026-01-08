@@ -32,9 +32,9 @@ def app():
                     filename = img['image']
                     
                     # Url structure: https://epic.gsfc.nasa.gov/archive/natural/{year}/{month}/{day}/png/{filename}.png
-                    img_url = f"https://epic.gsfc.nasa.gov/archive/natural/{year}/{month}/{day}/png/{filename}.png"
+                    image_url = f"https://epic.gsfc.nasa.gov/archive/natural/{year}/{month}/{day}/png/{filename}.png"
                     
-                    st.image(img_url, caption=f"{img['caption']} - {img['date']}", use_container_width=True)
+                    st.image(image_url, caption=f"{img['date']} - {img['caption']}", use_column_width=True)
                     st.divider()
 
             else:

@@ -25,7 +25,7 @@ def app():
                         desc = data.get("description", "No description.")
                         
                         st.subheader(title)
-                        st.image(img_url, use_container_width=True)
+                        st.image(img_url, use_column_width=True)
                         with st.expander("Description"):
                             st.write(desc)
                         st.divider()

@@ -14,7 +14,7 @@ def app():
     
     if apod_data:
         if apod_data.get("media_type") == "image":
-            st.image(apod_data.get("url"), caption=apod_data.get("title"), use_container_width=True)
+            st.image(apod_data.get("url"), caption=apod_data.get("title"), use_column_width=True)
         elif apod_data.get("media_type") == "video":
             st.video(apod_data.get("url"))
             

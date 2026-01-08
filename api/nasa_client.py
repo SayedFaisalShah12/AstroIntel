@@ -36,7 +36,48 @@ class NASAClient:
             return response.json()
         except requests.exceptions.RequestException as e:
             print(f"Error fetching {endpoint}: {e}")
-            return None
+            return self._get_mock_data(endpoint) # Fallback to mock data
+
+    def _get_mock_data(self, endpoint):
+        """Return mock data for demonstration purposes when API fails."""
+        if endpoint == "/planetary/apod":
+            return {
+                "title": "Cosmic Pillars (Mock Data)",
+                "date": datetime.date.today().strftime("%Y-%m-%d"),
+                "explanation": "This is a placeholder image because the NASA API is currently unreachable. The Pillars of Creation are elephants trunks of interstellar gas and dust in the Eagle Nebula.",
+                "media_type": "image",
+                "url": "https://upload.wikimedia.org/wikipedia/commons/6/68/Pillars_of_creation_2014_HST_WFC3-UVIS_full-res_denoised.jpg"
+            }
+        elif "/mars-photos/api/v1/rovers" in endpoint:
+             return {
+                 "photos": [
+                     {"id": 1, "img_src": "https://upload.wikimedia.org/wikipedia/commons/d/d8/NASA_Mars_Rover.jpg", "rover": {"name": "Curiosity"}, "camera": {"full_name": "Mock Cam"}},
+                     {"id": 2, "img_src": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Curiosity_Self-Portrait_at_%27Big_Sky%27_Drill_Site.jpg", "rover": {"name": "Curiosity"}, "camera": {"full_name": "Mock Cam 2"}}
+                 ]
+             }
+        elif "EPIC" in endpoint:
+            # Return a list of mock EPIC images (needs structure compatible with app)
+            # Typically returns a list of dicts
+            return [
+                {
+                    "identifier": "20260101000000",
+                    "caption": "Mock Earth Image",
+                    "image": "epic_1b_20161011002313", # Dummy filename, won't load from NASA archive but handled by app logic
+                    "date": "2016-10-11 00:23:40"
+                }
+            ]
+        elif "neo" in endpoint:
+             # Basic NEO mock
+             today = datetime.date.today().strftime("%Y-%m-%d")
+             return {
+                 "near_earth_objects": {
+                     today: [
+                         {"id": "mock1", "name": "Mock Asteroid", "estimated_diameter": {"kilometers": {"estimated_diameter_max": 0.5}}, "is_potentially_hazardous_asteroid": True, "close_approach_data": [{"relative_velocity": {"kilometers_per_hour": "20000"}, "miss_distance": {"kilometers": "500000"}}]}
+                     ]
+                 }
+             }
+
+        return None
 
     def get_apod(self):
         """Get Astronomy Picture of the Day"""
@@ -75,4 +116,18 @@ class NASAClient:
             return response.json()
         except requests.exceptions.RequestException as e:
             print(f"Error searching images: {e}")
-            return None
+            # Mock Search Results
+            return {
+                "collection": {
+                    "items": [
+                        {
+                            "data": [{"title": "Mock Search Result 1", "description": "Mock description", "nasa_id": "1"}],
+                            "links": [{"href": "https://upload.wikimedia.org/wikipedia/commons/e/e1/FullMoon2010.jpg"}]
+                        },
+                         {
+                            "data": [{"title": "Mock Search Result 2", "description": "Mock description", "nasa_id": "2"}],
+                            "links": [{"href": "https://upload.wikimedia.org/wikipedia/commons/b/b4/The_Sun_by_the_Atmospheric_Imaging_Assembly_of_NASA%27s_Solar_Dynamics_Observatory_-_20100819.jpg"}]
+                        }
+                    ]
+                }
+            }

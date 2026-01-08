@@ -30,7 +30,7 @@ def app():
                     cols = st.columns(3)
                     for idx, photo in enumerate(filtered_photos[:9]):
                         with cols[idx % 3]:
-                            st.image(photo["img_src"], caption=f"ID: {photo['id']}")
+                            st.image(photo['img_src'], caption=f"{photo['rover']['name']} - {photo['camera']['full_name']}", use_column_width=True)
                 else:
                     st.warning(f"No photos found for {cam} on Sol {sol}.")
             else:
