@@ -1,7 +1,10 @@
 # AstroIntel 🚀🌌
 ### AI-Powered Space Analytics & Exploration Platform
 
-**AstroIntel** is a comprehensive space analytics dashboard built with Python and Streamlit. It leverages NASA's public APIs to provide real-time data on Near-Earth Objects (NEOs), Mars rover imagery, detailed Earth observation, and an AI-powered weather prediction model for the Martian surface.
+**AstroIntel** is a comprehensive space analytics dashboard built with Python and Streamlit. It leverages NASA's public APIs to provide real-time data on Near-Earth Objects (NEOs), Mars rover imagery, detailed Earth observation, and an AI-powered weather prediction model for the Martian surface.   
+
+### Links:
+https://sayedfaisalshah12-astrointel-dashboard-okvafp.streamlit.app/
 
 ---
 
