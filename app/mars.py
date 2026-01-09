@@ -22,7 +22,7 @@ def app():
             if photos_data and "photos" in photos_data:
                 photos = photos_data["photos"]
                 # Filter by camera
-                filtered_photos = [p for p in photos if p["camera"]["name"] == cam]
+                filtered_photos = [p for p in photos if p.get("camera", {}).get("name") == cam]
                 
                 if filtered_photos:
                     st.success(f"Found {len(filtered_photos)} photos.")

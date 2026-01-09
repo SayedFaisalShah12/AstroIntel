@@ -51,8 +51,8 @@ class NASAClient:
         elif "/mars-photos/api/v1/rovers" in endpoint:
              return {
                  "photos": [
-                     {"id": 1, "img_src": "https://upload.wikimedia.org/wikipedia/commons/d/d8/NASA_Mars_Rover.jpg", "rover": {"name": "Curiosity"}, "camera": {"full_name": "Mock Cam"}},
-                     {"id": 2, "img_src": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Curiosity_Self-Portrait_at_%27Big_Sky%27_Drill_Site.jpg", "rover": {"name": "Curiosity"}, "camera": {"full_name": "Mock Cam 2"}}
+                     {"id": 1, "img_src": "https://upload.wikimedia.org/wikipedia/commons/d/d8/NASA_Mars_Rover.jpg", "rover": {"name": "Curiosity"}, "camera": {"full_name": "Mock Cam", "name": "MAST"}},
+                     {"id": 2, "img_src": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Curiosity_Self-Portrait_at_%27Big_Sky%27_Drill_Site.jpg", "rover": {"name": "Curiosity"}, "camera": {"full_name": "Mock Cam 2", "name": "FHAZ"}}
                  ]
              }
         elif "EPIC" in endpoint:
@@ -72,7 +72,7 @@ class NASAClient:
              return {
                  "near_earth_objects": {
                      today: [
-                         {"id": "mock1", "name": "Mock Asteroid", "estimated_diameter": {"kilometers": {"estimated_diameter_max": 0.5}}, "is_potentially_hazardous_asteroid": True, "close_approach_data": [{"relative_velocity": {"kilometers_per_hour": "20000"}, "miss_distance": {"kilometers": "500000"}}]}
+                         {"id": "mock1", "name": "Mock Asteroid", "estimated_diameter": {"kilometers": {"estimated_diameter_max": 0.5, "estimated_diameter_min": 0.4}}, "is_potentially_hazardous_asteroid": True, "close_approach_data": [{"relative_velocity": {"kilometers_per_hour": "20000"}, "miss_distance": {"kilometers": "500000"}, "close_approach_date_full": "2023-Jan-01 12:00"}]}
                      ]
                  }
              }
